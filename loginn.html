@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up and Login Page</title>
+  <link rel="stylesheet" href="log.css">
+ </head>
+<body>
+
+<div class="container" id="signup-container">
+    <h2>Sign Up</h2>
+    <form id="signup-form">
+        <label for="newUsername">Username:</label>
+        <input type="text" id="newUsername" name="newUsername" required>
+
+        <label for="newPassword">Password:</label>
+        <input type="password" id="newPassword" name="newPassword" required>
+
+        <button type="button" onclick="signup()">Sign Up</button>
+    </form>
+</div>
+
+<div class="container" id="login-container" style="display: none;">
+    <h2>Login</h2>
+    <form id="login-form">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+
+        <button type="button" onclick="authenticate()">Login</button>
+    </form>
+    <p id="error-message" style="color: red;"></p>
+</div>
+
+<script>
+    var users = [
+    {
+        username:"",
+    }
+]; 
+
+    function signup() {
+        var newUsername = document.getElementById("newUsername").value;
+        var newPassword = document.getElementById("newPassword").value;
+
+       
+        if (users.some(user => user.username === newUsername)) {
+            alert("Username is already taken. Please choose a different username.");
+            return;
+        }
+
+       
+        users.push({ username: newUsername, password: newPassword });
+
+        
+        document.getElementById("signup-container").style.display = "none";
+        document.getElementById("login-container").style.display = "block";
+    }
+
+    function authenticate() {
+        var usernameInput = document.getElementById("username").value;
+        var passwordInput = document.getElementById("password").value;
+
+        
+        var isValidUser = users.some(user => user.username === usernameInput && user.password === passwordInput);
+
+        if (isValidUser) {
+            window.open('wlcm.html', '_blank');
+          
+        } else {
+            document.getElementById("error-message").textContent = "Invalid username or password. Please try again.";
+        }
+    }
+</script>
+
+</body>
+</html>
